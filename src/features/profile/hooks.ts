@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { cachedRead } from '../../lib/offline/cachedRead';
 import { useUserId } from '../auth/authStore';
 import { AVATAR_URL_TTL_SECONDS, fetchAvatarUrl, fetchProfile, fetchSettings } from './api';
 
@@ -7,12 +8,18 @@ const AVATAR_URL_REFRESH_MS = (AVATAR_URL_TTL_SECONDS - 600) * 1000;
 
 export const useProfile = () => {
   const userId = useUserId();
-  return useQuery({ queryKey: ['profile', userId], queryFn: () => fetchProfile(userId) });
+  return useQuery({
+    queryKey: ['profile', userId],
+    queryFn: () => cachedRead(userId, 'profile', () => fetchProfile(userId)),
+  });
 };
 
 export const useSettings = () => {
   const userId = useUserId();
-  return useQuery({ queryKey: ['settings', userId], queryFn: () => fetchSettings(userId) });
+  return useQuery({
+    queryKey: ['settings', userId],
+    queryFn: () => cachedRead(userId, 'settings', () => fetchSettings(userId)),
+  });
 };
 
 export const useAvatarUrl = (path: string | null | undefined) => {

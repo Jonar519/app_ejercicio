@@ -1,11 +1,13 @@
 import { queryClient } from '../../app/queryClient';
 import { clearLocalData } from '../../lib/localData';
 import { supabase } from '../../lib/supabase';
+import { resetRunner } from '../workout/runnerStore';
 import { useAuthStore } from './authStore';
 
 /** Vacía el estado en memoria sin tocar el dispositivo. */
 export const clearMemory = () => {
   queryClient.clear();
+  resetRunner();
   useAuthStore.setState({ status: 'ready', session: null, recovery: false });
 };
 

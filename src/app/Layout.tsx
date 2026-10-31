@@ -1,5 +1,6 @@
 import { Dumbbell, Salad, UserRound } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router-dom';
+import { SyncIndicator } from '../features/pwa/SyncIndicator';
 
 const TABS = [
   { to: '/entrenamiento', label: 'Entrenamiento', icon: Dumbbell },
@@ -18,6 +19,9 @@ export function Layout() {
   return (
     <div className="mx-auto flex min-h-dvh max-w-md flex-col">
       <main className="flex flex-1 flex-col gap-6 p-4 pb-24">
+        <div className="flex justify-end">
+          <SyncIndicator />
+        </div>
         <Outlet />
       </main>
       <nav

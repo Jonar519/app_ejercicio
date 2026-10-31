@@ -11,7 +11,10 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 30_000,
+      // Las consultas caen a la copia local: deben ejecutarse también sin conexión.
+      networkMode: 'always',
       retry: (failureCount, error) => !isClientError(error) && failureCount < MAX_RETRIES,
     },
+    mutations: { networkMode: 'always' },
   },
 });
