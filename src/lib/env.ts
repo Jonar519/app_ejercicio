@@ -11,6 +11,8 @@ const jwtRole = (token: string): unknown => {
   }
 };
 
+const isPublicRole = (role: unknown) => role === undefined || role === 'anon';
+
 const envSchema = z.object({
   VITE_SUPABASE_URL: z.url({
     protocol: /^https?$/,
@@ -19,7 +21,7 @@ const envSchema = z.object({
   VITE_SUPABASE_ANON_KEY: z
     .string({ error: 'Falta VITE_SUPABASE_ANON_KEY' })
     .min(1, 'Falta VITE_SUPABASE_ANON_KEY')
-    .refine((key) => !key.startsWith('sb_secret_') && jwtRole(key) !== 'service_role', {
+    .refine((key) => !key.startsWith('sb_secret_') && isPublicRole(jwtRole(key)), {
       error: 'VITE_SUPABASE_ANON_KEY no puede ser una clave secreta: usa la clave anon pública',
     }),
 });
