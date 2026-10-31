@@ -19,6 +19,7 @@
     "test:db": "node scripts/test-db.mjs",
     "scan:secrets": "secretlint \"**/*\" --secretlintignore .secretlintignore",
     "program:json": "node scripts/generate-program-json.mjs",
+    "icons": "node scripts/generate-icons.mjs",
     "prepare": "husky",
     "test:secrets": "node scripts/verify-secret-detection.mjs",
     "test:integration": "node scripts/test-integration.mjs"
@@ -63,7 +64,9 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.1",
     "vite": "8.3.5",
-    "vitest": "5.0.5"
+    "vite-plugin-pwa": "2.0.0",
+    "vitest": "5.0.5",
+    "workbox-window": "7.4.1"
   },
   "license": "MIT"
 }

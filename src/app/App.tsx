@@ -8,6 +8,7 @@ import { ResetPasswordPage } from '../features/auth/ResetPasswordPage';
 import { NutritionPage } from '../features/nutrition/NutritionPage';
 import { ProfilePage } from '../features/profile/ProfilePage';
 import { SyncBoundary } from '../features/pwa/SyncBoundary';
+import { UpdatePrompt } from '../features/pwa/UpdatePrompt';
 import { RunnerPage } from '../features/workout/RunnerPage';
 import { TodayPage } from '../features/workout/TodayPage';
 import { WeightHistoryPage } from '../features/weigh-in/WeightHistoryPage';
@@ -19,6 +20,7 @@ export function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
+        <UpdatePrompt />
         <BrowserRouter>
           <Routes>
             <Route element={<GuestOnly />}>

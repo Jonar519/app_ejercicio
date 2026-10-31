@@ -1,5 +1,6 @@
 import { Dumbbell, Salad, UserRound } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router-dom';
+import { InstallBanner } from '../features/pwa/InstallBanner';
 import { SyncIndicator } from '../features/pwa/SyncIndicator';
 
 const TABS = [
@@ -22,6 +23,7 @@ export function Layout() {
         <div className="flex justify-end">
           <SyncIndicator />
         </div>
+        <InstallBanner />
         <Outlet />
       </main>
       <nav

@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ConfigError } from './app/ConfigError';
+import { listenForInstallPrompt } from './features/pwa/installPrompt';
 import './index.css';
 import { EnvError, parseEnv } from './lib/env';
 
@@ -13,6 +14,8 @@ const configIssues = (): string[] => {
     throw error;
   }
 };
+
+listenForInstallPrompt();
 
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('No se encontró el elemento raíz');
