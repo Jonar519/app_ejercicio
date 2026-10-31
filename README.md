@@ -30,6 +30,16 @@ supabase db push
 
 Las migraciones están en `supabase/migrations/` y crean tablas, RLS, el trigger de alta, `complete_day`, la exportación, el borrado de cuenta y el bucket `avatars`.
 
+## Stack local de Supabase
+
+```bash
+npx -y supabase@2.122.0 start -x vector,imgproxy,postgres-meta,studio,edge-runtime,logflare,realtime
+npm run test:integration
+npx -y supabase@2.122.0 stop
+```
+
+Usa Docker y los puertos 453xx de `supabase/config.toml`; los correos de prueba se ven en `http://127.0.0.1:45324`.
+
 ## Scripts
 
 | Script | Acción |
@@ -38,6 +48,7 @@ Las migraciones están en `supabase/migrations/` y crean tablas, RLS, el trigger
 | `npm run typecheck` / `lint` / `format` | Tipos, ESLint y Prettier |
 | `npm run test` | Pruebas unitarias con Vitest |
 | `npm run test:db` | Aplica las migraciones en un Postgres desechable y ejecuta las pruebas pgTAP |
+| `npm run test:integration` | Prueba Auth y Storage reales contra el stack local |
 | `npm run scan:secrets` | Busca secretos en los archivos del repositorio |
 | `npm run test:secrets` | Comprueba con un JWT sintético que secretlint y gitleaks detectan claves `service_role` (requiere Docker) |
 | `npm run program:json` | Regenera `src/data/program.json` desde `program.ts` |

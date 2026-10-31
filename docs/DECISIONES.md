@@ -23,4 +23,21 @@
 - `npm audit` falla solo en severidad alta (como pide la especificación); hay avisos moderados de `minimatch` en herramientas de desarrollo que no llegan al bundle.
 - El repositorio `Jonar519/app_ejercicio` es público por decisión del propietario, lo que sustituye al "privado" de la especificación: habilita Secret scanning, Push protection, alertas de CodeQL y protección de rama sin coste, y obliga a tratar todo lo commiteado como publicado.
 - Licencia MIT, con Jonar519 como titular.
+- La Fase 2 parte de `feat/fase-1-fundamentos` porque la PR de la Fase 1 no estaba fusionada al empezar.
+- Autenticación con flujo PKCE: el enlace de recuperación no expone tokens en la URL, pero debe abrirse en el mismo navegador que lo solicitó.
+- Un cambio de contraseña cierra las demás sesiones del usuario.
+- Una sesión de recuperación solo da acceso a `/restablecer` hasta cambiar la contraseña; al recargar esa página se pierde el modo recuperación y hay que pedir otro enlace.
+- Mensajes genéricos: el registro de un email existente y la recuperación responden igual que un caso válido; el login no distingue email inexistente, contraseña incorrecta ni cuenta sin confirmar. Solo se informa de fallos de red y del límite de intentos.
+- Contraseña de 10 a 72 caracteres: 72 es el límite de bcrypt, que usa Supabase Auth.
+- El indicador de fortaleza es local y orientativo; no se añade una biblioteca como zxcvbn para mantener el bundle pequeño.
+- `avatar_url` guarda la ruta del archivo, no una URL, porque el bucket es privado.
+- URL firmada de avatar con validez de 1 hora, renovada a los 50 minutos y también si la imagen falla al cargar.
+- Avatar: entrada de hasta 10 MB; salida WebP (JPEG si el navegador no codifica WebP) con máximo 512 px, bajando la calidad hasta ~200 KB.
+- La UI no incluye "quitar foto": no se pidió, y `Cambiar foto` retira el archivo anterior.
+- Cierre de sesión explícito: borra `localStorage` y `sessionStorage` propios (`sb-*`, `app-ejercicio*`), las bases IndexedDB `app-ejercicio*` y las cachés, salvo la precaché pública de Workbox.
+- Un `SIGNED_OUT` no explícito (caducidad u otra pestaña) solo vacía la memoria: la sección 3.6 exige conservar la cola offline si la sesión caduca.
+- `display_name` se guarda sin exigir contenido: un nombre vacío es válido, como en el esquema.
+- `src/app/App.tsx` y Supabase se cargan de forma diferida en `main.tsx` para mostrar `ConfigError` si la configuración es inválida.
+- Stack local en puertos 453xx: Windows reserva el rango 54244–54343 en este equipo. `site_url` local es `http://localhost:5173` y la contraseña mínima local es 10.
+- Pruebas de integración con `npx supabase@2.122.0`, sin añadir la CLI como dependencia. La CSP de `vercel.json` no necesitó cambios.
 - Nombre provisional de la app: "App Ejercicio", tomado del repositorio.

@@ -20,7 +20,7 @@ El repositorio es **público** por decisión del propietario. Todo lo que llegue
 
 - [ ] 2FA activado en la cuenta.
 - [ ] Settings → Advanced Security: activar Dependabot alerts, Dependabot security updates, Secret scanning, Push protection y Private vulnerability reporting (lo usa `SECURITY.md`).
-- [ ] Settings → Branches: proteger `main` exigiendo PR, una revisión y que pasen `verify`, `database`, `secrets` y `analyze`, y bloqueando force-push y borrado. La regla debe incluir a los administradores para que aplique también al propietario; como único colaborador no podrás aprobar tu propia PR, así que exige la revisión solo si añades a otra persona.
+- [ ] Settings → Branches: proteger `main` exigiendo PR, una revisión y que pasen `verify`, `database`, `integration`, `secrets` y `analyze`, y bloqueando force-push y borrado. La regla debe incluir a los administradores para que aplique también al propietario; como único colaborador no podrás aprobar tu propia PR, así que exige la revisión solo si añades a otra persona.
 - [ ] Settings → Actions → General: exigir aprobación para ejecutar workflows de colaboradores externos y dejar `GITHUB_TOKEN` en solo lectura por defecto.
 
 ### Supabase
@@ -29,7 +29,8 @@ El repositorio es **público** por decisión del propietario. Todo lo que llegue
 - [ ] Authentication → Providers → Email: confirmación de email activada.
 - [ ] Authentication → Password: longitud mínima 10 y protección de contraseñas filtradas activada (requiere plan Pro).
 - [ ] Authentication → Rate Limits: revisar los límites de intentos.
-- [ ] Authentication → URL Configuration: Site URL de Vercel y Redirect URLs solo para `http://localhost:5173` y el dominio real de Vercel, sin comodines.
+- [ ] Authentication → URL Configuration: Site URL de Vercel y Redirect URLs solo para `http://localhost:5173/restablecer` y `https://<dominio-de-vercel>/restablecer`, sin comodines.
+- [ ] Authentication → Email Templates: traducir al español al menos "Confirm signup" y "Reset password", que por defecto están en inglés.
 - [ ] Aplicar las migraciones con `supabase db push`.
 
 ### Vercel
