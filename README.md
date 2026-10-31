@@ -49,4 +49,4 @@ Las migraciones están en `supabase/migrations/` y crean tablas, RLS, el trigger
 
 ## Licencia
 
-Sin licencia por ahora: todos los derechos reservados (ver [decisiones](docs/DECISIONES.md)).
+[MIT](LICENSE)
