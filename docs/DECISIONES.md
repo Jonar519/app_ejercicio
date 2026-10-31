@@ -20,5 +20,6 @@
 - `display_name` puede quedar vacío al registrarse: es el único dato de perfil que no se exige.
 - Pruebas de BD con la imagen `supabase/postgres` y `psql`, sin Supabase CLI. El servicio de Storage no corre ahí, por lo que `scripts/test-db-bootstrap.sql` replica sus tablas mínimas: los límites del bucket se verifican como configuración, no en una subida real.
 - `npm audit` falla solo en severidad alta (como pide la especificación); hay avisos moderados de `minimatch` en herramientas de desarrollo que no llegan al bundle.
-- Sin licencia: no se eligió ninguna, así que el repositorio queda con todos los derechos reservados.
+- El repositorio `Jonar519/app_ejercicio` es público por decisión del propietario, lo que sustituye al "privado" de la especificación: habilita Secret scanning, Push protection, alertas de CodeQL y protección de rama sin coste, y obliga a tratar todo lo commiteado como publicado.
+- Licencia MIT, con Jonar519 como titular.
 - Nombre provisional de la app: "App Ejercicio", tomado del repositorio.

@@ -6,13 +6,22 @@ La auditoría final (sección 3.8) se añadirá en la Fase 6. Este documento rec
 
 ### GitHub
 
-- [ ] Repositorio **privado** (Settings → General → Danger Zone → Change visibility).
-- [ ] 2FA activado en la cuenta.
-- [ ] Dependabot alerts y Dependabot security updates activados.
-- [ ] Secret scanning y Push protection activados.
-- [ ] Rama `main` protegida: exigir PR, exigir revisión, exigir que pasen `verify`, `database` y `secrets`, bloquear force-push y borrado.
+El repositorio es **público** por decisión del propietario. Todo lo que llegue a GitHub, incluidas ramas, PRs e historial, debe considerarse publicado.
 
-**Aviso sobre repositorios privados:** en cuentas gratuitas, Secret scanning, Push protection y la subida de resultados de CodeQL solo están disponibles en repositorios públicos o con GitHub Advanced Security. En privado, el workflow de CodeQL analiza pero no publica alertas, y la protección de secretos recae en secretlint y gitleaks. Las reglas de protección de rama en privado también pueden requerir un plan de pago; compruébalo en tu cuenta.
+| Protección | En repositorio público | Quién la configura |
+| --- | --- | --- |
+| Secret scanning | Disponible sin coste | Propietario |
+| Push protection | Disponible sin coste | Propietario |
+| CodeQL | Disponible sin coste; el workflow ya sube las alertas a Security | Automático (`codeql.yml`) |
+| Protección de rama | Disponible sin coste | Propietario |
+| Dependabot alerts y security updates | Disponible sin coste | Propietario |
+| Dependabot version updates | Activo al fusionar `dependabot.yml` | Automático |
+| secretlint (pre-commit) y gitleaks (CI) | Activos | Automático |
+
+- [ ] 2FA activado en la cuenta.
+- [ ] Settings → Advanced Security: activar Dependabot alerts, Dependabot security updates, Secret scanning, Push protection y Private vulnerability reporting (lo usa `SECURITY.md`).
+- [ ] Settings → Branches: proteger `main` exigiendo PR, una revisión y que pasen `verify`, `database`, `secrets` y `analyze`, y bloqueando force-push y borrado. La regla debe incluir a los administradores para que aplique también al propietario; como único colaborador no podrás aprobar tu propia PR, así que exige la revisión solo si añades a otra persona.
+- [ ] Settings → Actions → General: exigir aprobación para ejecutar workflows de colaboradores externos y dejar `GITHUB_TOKEN` en solo lectura por defecto.
 
 ### Supabase
 
@@ -32,6 +41,7 @@ La auditoría final (sección 3.8) se añadirá en la Fase 6. Este documento rec
 
 - `.env.local` no se versiona y solo contiene la URL y la clave anon, que son públicas por diseño. La protección real de los datos es RLS.
 - La clave `service_role` no se usa en este proyecto: no debe estar en el repositorio, en CI ni en Vercel.
+- `npm run test:secrets` comprueba que secretlint y gitleaks detectan un JWT con `"role":"service_role"`. El JWT se genera al ejecutarse, en un directorio temporal fuera del repositorio.
 
 ## Rotación de claves
 
