@@ -1,5 +1,21 @@
 @import 'tailwindcss';
 
+:root {
+  --chart-line: var(--color-emerald-700);
+  --chart-surface: var(--color-white);
+  --chart-border: var(--color-neutral-300);
+  --chart-text: var(--color-neutral-900);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --chart-line: var(--color-emerald-400);
+    --chart-surface: var(--color-neutral-800);
+    --chart-border: var(--color-neutral-600);
+    --chart-text: var(--color-neutral-100);
+  }
+}
+
 @layer base {
   body {
     @apply bg-neutral-50 text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100;

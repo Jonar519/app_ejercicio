@@ -5,11 +5,12 @@ import { RecoverPage } from '../features/auth/RecoverPage';
 import { RegisterPage } from '../features/auth/RegisterPage';
 import { GuestOnly, RequireAuth } from '../features/auth/RequireAuth';
 import { ResetPasswordPage } from '../features/auth/ResetPasswordPage';
-import { NutritionPlaceholderPage } from '../features/nutrition/NutritionPlaceholderPage';
+import { NutritionPage } from '../features/nutrition/NutritionPage';
 import { ProfilePage } from '../features/profile/ProfilePage';
 import { SyncBoundary } from '../features/pwa/SyncBoundary';
 import { RunnerPage } from '../features/workout/RunnerPage';
 import { TodayPage } from '../features/workout/TodayPage';
+import { WeightHistoryPage } from '../features/weigh-in/WeightHistoryPage';
 import { ErrorBoundary } from './ErrorBoundary';
 import { Layout } from './Layout';
 import { queryClient } from './queryClient';
@@ -32,7 +33,8 @@ export function App() {
                 <Route element={<Layout />}>
                   <Route index element={<Navigate to="/entrenamiento" replace />} />
                   <Route path="/entrenamiento" element={<TodayPage />} />
-                  <Route path="/nutricion" element={<NutritionPlaceholderPage />} />
+                  <Route path="/entrenamiento/peso" element={<WeightHistoryPage />} />
+                  <Route path="/nutricion" element={<NutritionPage />} />
                   <Route path="/perfil" element={<ProfilePage />} />
                 </Route>
               </Route>

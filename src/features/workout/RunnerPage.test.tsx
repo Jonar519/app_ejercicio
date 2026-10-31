@@ -31,6 +31,7 @@ const SETTINGS: Settings = {
 };
 
 let serverDay = 1;
+let serverWeights: unknown[] = [];
 
 /** Servidor simulado: solo responde a las lecturas del día activo y las preferencias. */
 vi.mock('../../lib/supabase', () => {
@@ -41,6 +42,7 @@ vi.mock('../../lib/supabase', () => {
       eq: () => query,
       abortSignal: () => query,
       maybeSingle: async () => ({ data: null, error: null }),
+      order: async () => ({ data: serverWeights, error: null }),
       single: async () =>
         table === 'user_progress'
           ? { data: { global_day: serverDay }, error: null }
@@ -78,6 +80,7 @@ const start = async (user: ReturnType<typeof userEvent.setup>) => {
 beforeEach(() => {
   userId = crypto.randomUUID();
   serverDay = 1;
+  serverWeights = [];
   resetRunner();
   useAuthStore.setState({
     status: 'ready',
@@ -236,6 +239,60 @@ describe('check-in', () => {
     expect(await screen.findByRole('heading', { name: '¡Día 31 completado!' })).toBeInTheDocument();
     const operations = (await readQueue(userId)).map((item) => item.operation.type);
     expect(operations).toEqual(['session_start', 'complete_day']);
+  });
+
+  it.each([7, 14, 21, 28, 38, 59, 69])('el día %i exige el pesaje antes de cerrar', async (day) => {
+    serverDay = day;
+    renderApp();
+    await screen.findByLabelText('Peso de hoy (kg)');
+    expect(screen.getByRole('button', { name: 'Marcar descanso completado' })).toBeDisabled();
+    expect(screen.getByText('Registra tu peso para poder cerrar el día.')).toBeInTheDocument();
+  });
+
+  it('el pesaje desbloquea el cierre y se guarda en kg', async () => {
+    serverDay = 38;
+    const user = userEvent.setup();
+    renderApp();
+    await user.type(await screen.findByLabelText('Peso de hoy (kg)'), '80,5');
+    await click(user, 'Registrar peso');
+
+    expect(await screen.findByText('Peso registrado: 80,5 kg')).toBeInTheDocument();
+    await click(user, 'Marcar descanso completado');
+    expect(await screen.findByRole('heading', { name: '¡Día 38 completado!' })).toBeInTheDocument();
+
+    const operations = (await readQueue(userId)).map((item) => item.operation);
+    expect(operations).toMatchObject([
+      { type: 'weight_log', globalDay: 38, weightKg: 80.5 },
+      { type: 'session_start', globalDay: 38 },
+      { type: 'complete_day', globalDay: 38 },
+    ]);
+  });
+
+  it('un peso inválido no desbloquea el cierre', async () => {
+    serverDay = 7;
+    const user = userEvent.setup();
+    renderApp();
+    await user.type(await screen.findByLabelText('Peso de hoy (kg)'), '500');
+    await click(user, 'Registrar peso');
+    expect(await screen.findByText('Introduce un peso entre 20 y 400 kg')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Marcar descanso completado' })).toBeDisabled();
+  });
+
+  it('un peso ya registrado en el servidor no se vuelve a pedir', async () => {
+    serverDay = 7;
+    serverWeights = [
+      {
+        id: '33333333-3333-4333-8333-333333333333',
+        global_day: 7,
+        cycle_day: 7,
+        cycle_number: 1,
+        weight_kg: '80.50',
+        logged_at: '2026-10-30T10:00:00+00:00',
+      },
+    ];
+    renderApp();
+    expect(await screen.findByText('Peso registrado: 80,5 kg')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Marcar descanso completado' })).toBeEnabled();
   });
 
   it('al completar el día 31 pasa al día 32, ciclo 2, con la rutina del día 1', async () => {
