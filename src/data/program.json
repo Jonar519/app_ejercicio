@@ -1,0 +1,297 @@
+{
+  "ROUTINES": {
+    "A": [
+      {
+        "key": "squat",
+        "name": "Sentadillas",
+        "target": {
+          "kind": "reps",
+          "reps": 15
+        }
+      },
+      {
+        "key": "pushup",
+        "name": "Flexiones",
+        "target": {
+          "kind": "reps",
+          "reps": 15
+        }
+      },
+      {
+        "key": "lunge",
+        "name": "Zancadas",
+        "target": {
+          "kind": "reps_per_leg",
+          "reps": 10
+        }
+      },
+      {
+        "key": "glute_bridge",
+        "name": "Puente de glúteos",
+        "target": {
+          "kind": "reps",
+          "reps": 15
+        }
+      },
+      {
+        "key": "calf_raise",
+        "name": "Elevaciones de pantorrilla",
+        "target": {
+          "kind": "reps",
+          "reps": 20
+        }
+      },
+      {
+        "key": "plank",
+        "name": "Plancha",
+        "target": {
+          "kind": "time",
+          "seconds": 45
+        }
+      }
+    ],
+    "B": [
+      {
+        "key": "squat",
+        "name": "Sentadillas",
+        "target": {
+          "kind": "reps",
+          "reps": 15
+        }
+      },
+      {
+        "key": "pushup",
+        "name": "Flexiones",
+        "target": {
+          "kind": "reps",
+          "reps": 15
+        }
+      },
+      {
+        "key": "reverse_lunge",
+        "name": "Zancadas hacia atrás",
+        "target": {
+          "kind": "reps_per_leg",
+          "reps": 10
+        }
+      },
+      {
+        "key": "chair_dip",
+        "name": "Fondos en silla",
+        "target": {
+          "kind": "reps",
+          "reps": 12
+        }
+      },
+      {
+        "key": "leg_raise",
+        "name": "Elevaciones de piernas",
+        "target": {
+          "kind": "reps",
+          "reps": 15
+        }
+      },
+      {
+        "key": "side_plank",
+        "name": "Plancha lateral",
+        "target": {
+          "kind": "time_per_side",
+          "seconds": 30
+        }
+      }
+    ]
+  },
+  "PROGRAM": [
+    {
+      "cycleDay": 1,
+      "type": "strength_cardio",
+      "routine": "A",
+      "cardioMinutes": 15,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 2,
+      "type": "cardio",
+      "cardioMinutes": 20,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 3,
+      "type": "strength_cardio",
+      "routine": "B",
+      "cardioMinutes": 15,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 4,
+      "type": "cardio",
+      "cardioMinutes": 30,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 5,
+      "type": "strength_cardio",
+      "routine": "A",
+      "cardioMinutes": 15,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 6,
+      "type": "cardio",
+      "cardioMinutes": 40,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 7,
+      "type": "active_rest",
+      "requiresWeighIn": true
+    },
+    {
+      "cycleDay": 8,
+      "type": "strength_cardio",
+      "routine": "B",
+      "cardioMinutes": 20,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 9,
+      "type": "cardio",
+      "cardioMinutes": 35,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 10,
+      "type": "strength",
+      "routine": "A",
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 11,
+      "type": "cardio",
+      "cardioMinutes": 35,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 12,
+      "type": "strength_cardio",
+      "routine": "B",
+      "cardioMinutes": 20,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 13,
+      "type": "cardio",
+      "cardioMinutes": 45,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 14,
+      "type": "active_rest",
+      "requiresWeighIn": true
+    },
+    {
+      "cycleDay": 15,
+      "type": "strength_cardio",
+      "routine": "A",
+      "cardioMinutes": 25,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 16,
+      "type": "cardio",
+      "cardioMinutes": 40,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 17,
+      "type": "strength",
+      "routine": "B",
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 18,
+      "type": "cardio",
+      "cardioMinutes": 40,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 19,
+      "type": "strength_cardio",
+      "routine": "A",
+      "cardioMinutes": 25,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 20,
+      "type": "cardio",
+      "cardioMinutes": 50,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 21,
+      "type": "active_rest",
+      "requiresWeighIn": true
+    },
+    {
+      "cycleDay": 22,
+      "type": "strength_cardio",
+      "routine": "B",
+      "cardioMinutes": 25,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 23,
+      "type": "cardio",
+      "cardioMinutes": 45,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 24,
+      "type": "strength",
+      "routine": "A",
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 25,
+      "type": "cardio",
+      "cardioMinutes": 45,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 26,
+      "type": "strength_cardio",
+      "routine": "B",
+      "cardioMinutes": 30,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 27,
+      "type": "cardio",
+      "cardioMinutes": 60,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 28,
+      "type": "active_rest",
+      "requiresWeighIn": true
+    },
+    {
+      "cycleDay": 29,
+      "type": "strength_cardio",
+      "routine": "A",
+      "cardioMinutes": 20,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 30,
+      "type": "cardio",
+      "cardioMinutes": 45,
+      "requiresWeighIn": false
+    },
+    {
+      "cycleDay": 31,
+      "type": "active_rest",
+      "requiresWeighIn": false
+    }
+  ]
+}

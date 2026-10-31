@@ -1,0 +1,26 @@
+# Decisiones
+
+- TypeScript 6.0 en lugar de 7.0: `typescript-eslint` solo admite `<6.1`.
+- ESLint 9 en lugar de 10: `eslint-plugin-jsx-a11y` solo admite hasta la 9.
+- Tailwind 4 con `@tailwindcss/vite`: genera un CSS externo, así que la CSP no necesita `'unsafe-inline'` en `style-src`.
+- Escaneo de secretos: secretlint en el hook (paquete npm, sin binario) y gitleaks en CI sobre todo el historial, con la imagen fijada por digest.
+- El preset de secretlint no detecta JWT, así que `.secretlintrc.json` añade una regla de patrón. Bloquea cualquier JWT, incluida la clave anon: ninguna clave tiene motivo para estar versionada.
+- Las dependencias de fases posteriores (router, TanStack Query, Zustand, Recharts, vite-plugin-pwa) se instalan en la fase que las usa.
+- `cycle_day` y `cycle_number` son columnas generadas en SQL: derivan de `global_day` y el cliente no puede escribirlas.
+- La fórmula del ciclo y el calendario también existen en SQL porque el servidor valida; `program.test.ts` compara el calendario SQL con `program.ts`.
+- El calendario SQL vive en el esquema `private`, no expuesto por la API, por lo que no forma parte de las tablas de usuario.
+- `user_progress` es de solo lectura para el cliente y `complete_day` es `security definer`: es la única forma de impedir que un usuario se adelante de día.
+- `status`, `completed_at`, `total_seconds`, `day_type` y `routine` los fija el servidor; los permisos se conceden por columna.
+- `complete_day` también exige las series y el cardio del día, porque un día solo puede cerrarse con sus pasos completos. Códigos de error estables: `session_not_found`, `day_mismatch`, `weigh_in_required`, `steps_incomplete`.
+- Terminar antes un ejercicio o cardio cuenta como paso completado: se registra el tiempo real.
+- Las sesiones solo se abren para el `global_day` activo, y las sesiones cerradas y sus registros son inmutables.
+- El peso se puede registrar en cualquier día activo; solo es obligatorio en los días de pesaje.
+- Límites elegidos: calorías 0–20 000, `display_name` ≤ 50, nombre de alimento ≤ 120, descansos 5–600 s, meta calórica 1–20 000, meta por defecto 2000 kcal.
+- El bucket `avatars` es privado y el avatar se muestra con URL firmada; límite de 512 KiB como margen sobre el objetivo de ~200 KB.
+- `delete_my_account` exige el texto `ELIMINAR`. Storage prohíbe borrar archivos por SQL, así que el cliente elimina el avatar con la API antes de llamar a la función.
+- `display_name` puede quedar vacío al registrarse: es el único dato de perfil que no se exige.
+- Pruebas de BD con la imagen `supabase/postgres` y `psql`, sin Supabase CLI. El servicio de Storage no corre ahí, por lo que `scripts/test-db-bootstrap.sql` replica sus tablas mínimas: los límites del bucket se verifican como configuración, no en una subida real.
+- `npm audit` falla solo en severidad alta (como pide la especificación); hay avisos moderados de `minimatch` en herramientas de desarrollo que no llegan al bundle.
+- El repositorio `Jonar519/app_ejercicio` es público por decisión del propietario, lo que sustituye al "privado" de la especificación: habilita Secret scanning, Push protection, alertas de CodeQL y protección de rama sin coste, y obliga a tratar todo lo commiteado como publicado.
+- Licencia MIT, con Jonar519 como titular.
+- Nombre provisional de la app: "App Ejercicio", tomado del repositorio.
