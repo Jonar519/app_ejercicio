@@ -1,6 +1,6 @@
 # Seguridad
 
-La auditoría final (sección 3.8) se añadirá en la Fase 6. Este documento recoge la configuración manual, que no se puede automatizar desde el repositorio.
+Este documento recoge la configuración manual, que no se puede automatizar desde el repositorio, y el modelo de autorización. La evidencia de las pruebas está en [VERIFICACION.md](VERIFICACION.md).
 
 ## Checklist manual
 
@@ -55,4 +55,5 @@ El repositorio es **público** por decisión del propietario. Todo lo que llegue
 - Toda tabla de `public` tiene RLS activado y forzado, con políticas basadas en `auth.uid()` y permisos concedidos por columna. `anon` no tiene acceso.
 - La validación del cliente es solo UX: la autoridad son las restricciones, las políticas y `complete_day`.
 - Funciones `security definer`, todas con `search_path = ''` y nombres calificados: `private.handle_new_user` (alta), `public.complete_day` (único camino para avanzar de día) y `public.delete_my_account` (borrado). Las dos últimas validan `auth.uid()` y solo las ejecuta `authenticated`.
+- Las funciones `sync_*` de la cola offline son `security invoker`: RLS y los permisos por columna siguen aplicándose, y no pueden modificar un día cerrado ni escribir en uno futuro.
 - Las pruebas de aislamiento están en `supabase/tests/` y se ejecutan en CI con `npm run test:db`.

@@ -30,10 +30,19 @@ export function ProfilePage() {
     else setPending(false);
   };
 
+  // Lo que va debajo espera a los datos para que la pantalla no salte al cargar.
+  if (profile.isPending || settings.isPending) {
+    return (
+      <>
+        <h1 className="text-3xl font-bold">Perfil</h1>
+        <Loading />
+      </>
+    );
+  }
+
   return (
     <>
       <h1 className="text-3xl font-bold">Perfil</h1>
-      {(profile.isPending || settings.isPending) && <Loading />}
       {(profile.isError || settings.isError) && (
         <>
           <FormMessage kind="error">No se pudo cargar tu perfil.</FormMessage>

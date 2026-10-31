@@ -41,3 +41,24 @@
 - Stack local en puertos 453xx: Windows reserva el rango 54244–54343 en este equipo. `site_url` local es `http://localhost:5173` y la contraseña mínima local es 10.
 - Pruebas de integración con `npx supabase@2.122.0`, sin añadir la CLI como dependencia. La CSP de `vercel.json` no necesitó cambios.
 - Nombre provisional de la app: "App Ejercicio", tomado del repositorio.
+- Las Fases 1 y 2 ya estaban en `origin` cuando se pidió construir el proyecto completo: se restauraron y se continuó desde ellas, sin reconstruirlas. Las Fases 3 a 7 parten de `feat/fases-3-a-7`.
+- La cola offline usa las RPC `sync_*` y no `upsert`: los permisos por columna impiden actualizar `id` o `user_id`, y RLS rechazaría repetir una escritura de un día ya cerrado.
+- Esas RPC reciben `global_day` y no el id de sesión, para que dos dispositivos escriban en la misma sesión del servidor sin traducir ids.
+- Todas las escrituras de entrenamiento, peso y alimentos pasan por la cola, con o sin conexión: hay un único camino de escritura.
+- La cola se envía en orden estricto. Un error transitorio la detiene con espera exponencial (1 s a 60 s); un rechazo definitivo aparta la operación y se muestra como "N sin sincronizar".
+- El `global_day` local va por delante del servidor solo mientras haya cola pendiente; vacía la cola, manda el servidor.
+- Un cronómetro sigue contando con la app cerrada, igual que con la pantalla bloqueada: no se puede distinguir un caso del otro. La duración se limita a los topes de la base de datos (2 h por serie, 4 h de cardio).
+- Al terminar un descanso o una cuenta atrás el paso avanza solo, con aviso de sonido y vibración según las preferencias.
+- Tras la última serie hay descanso entre ejercicios solo si sigue cardio. Entre los dos lados de la plancha lateral no hay descanso.
+- El temporizador de descanso no puede bajar del tiempo ya transcurrido: restar de más lo termina.
+- Las duraciones de `exercise_logs` y `cardio_logs` son las que se muestran en el resumen; `total_seconds` no incluye los descansos, como ya calculaba `complete_day`.
+- Una sesión abierta en otro dispositivo se continúa en el primer paso sin registrar. Si no se puede consultar en 3 s, se empieza en local y los registros se fusionan por día.
+- El peso se pide solo en los días de pesaje. La UI no permite editarlo porque no se pidió; `sync_weight_log` sí acepta una corrección mientras el día siga abierto, y así resuelve dos dispositivos.
+- El selector de fecha de nutrición no permite días futuros.
+- Eliminar un alimento no pide confirmación: es rápido de volver a añadir.
+- Recharts se carga de forma diferida solo en el historial de peso porque pesa más que el resto de la app.
+- Iconos generados con `scripts/generate-icons.mjs`, sin dependencias de imagen.
+- `vite-plugin-pwa` y `workbox-window` son dependencias de desarrollo: el código resultante queda en el bundle.
+- Actualización de la PWA con `registerType: 'prompt'`: no se recarga sola para no interrumpir un entrenamiento.
+- Las copias locales de progreso, perfil, preferencias, peso y alimentos viven en IndexedDB además de la caché `api-cache` de Workbox, porque la app debe funcionar aunque el service worker aún no controle la página.
+- Sin Playwright como dependencia: el flujo e2e con Chrome real se ejecutó con un script externo al repositorio; el escenario del día 31 a 32 queda además como prueba de Testing Library.
