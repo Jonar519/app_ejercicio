@@ -4,6 +4,7 @@
 - ESLint 9 en lugar de 10: `eslint-plugin-jsx-a11y` solo admite hasta la 9.
 - Tailwind 4 con `@tailwindcss/vite`: genera un CSS externo, así que la CSP no necesita `'unsafe-inline'` en `style-src`.
 - Escaneo de secretos: secretlint en el hook (paquete npm, sin binario) y gitleaks en CI sobre todo el historial, con la imagen fijada por digest.
+- El preset de secretlint no detecta JWT, así que `.secretlintrc.json` añade una regla de patrón. Bloquea cualquier JWT, incluida la clave anon: ninguna clave tiene motivo para estar versionada.
 - Las dependencias de fases posteriores (router, TanStack Query, Zustand, Recharts, vite-plugin-pwa) se instalan en la fase que las usa.
 - `cycle_day` y `cycle_number` son columnas generadas en SQL: derivan de `global_day` y el cliente no puede escribirlas.
 - La fórmula del ciclo y el calendario también existen en SQL porque el servidor valida; `program.test.ts` compara el calendario SQL con `program.ts`.

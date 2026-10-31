@@ -39,6 +39,7 @@ Las migraciones están en `supabase/migrations/` y crean tablas, RLS, el trigger
 | `npm run test` | Pruebas unitarias con Vitest |
 | `npm run test:db` | Aplica las migraciones en un Postgres desechable y ejecuta las pruebas pgTAP |
 | `npm run scan:secrets` | Busca secretos en los archivos del repositorio |
+| `npm run test:secrets` | Comprueba con un JWT sintético que secretlint y gitleaks detectan claves `service_role` (requiere Docker) |
 | `npm run program:json` | Regenera `src/data/program.json` desde `program.ts` |
 
 ## Documentación

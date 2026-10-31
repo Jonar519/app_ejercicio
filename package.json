@@ -19,7 +19,8 @@
     "test:db": "node scripts/test-db.mjs",
     "scan:secrets": "secretlint \"**/*\" --secretlintignore .secretlintignore",
     "program:json": "node scripts/generate-program-json.mjs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:secrets": "node scripts/verify-secret-detection.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.118.0",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.39.5",
+    "@secretlint/secretlint-rule-pattern": "13.1.0",
     "@secretlint/secretlint-rule-preset-recommend": "13.1.0",
     "@tailwindcss/vite": "4.3.3",
     "@testing-library/jest-dom": "7.0.1",
