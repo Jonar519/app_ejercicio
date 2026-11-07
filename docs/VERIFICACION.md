@@ -34,7 +34,7 @@ Las 19 comprobaciones pasaron. No hubo violaciones de CSP: el único error de co
 | 6 | `complete_day` idempotente y RLS | `complete_day.test.sql`, `rls.test.sql`, `sync.test.sql` |
 | 7 | Instalable, abre offline y sincroniza | Chrome sin errores de instalabilidad; con la red cortada abrió, completó el día y añadió un alimento; al reconectar Postgres quedó con día 2, 18 series, cardio, sesión completada y 1 alimento |
 | 8 | Español y usable a 360 px | Sin scroll horizontal en Hoy, serie, resumen, nutrición, peso y perfil; revisión visual de capturas |
-| 9 | Historial, secretos y publicación | Historial y secretos correctos; publicación pendiente (ver más abajo) |
+| 9 | Historial, secretos y publicación | Historial y secretos correctos; publicado en GitHub |
 
 ## Lighthouse
 
@@ -65,4 +65,4 @@ Cada fase tiene uno o varios commits en formato Conventional Commits: las Fases 
 
 ## Publicación
 
-Pendiente. `git push -u origin main` respondió "Repository not found": `github.com/Jonar519/app_ejercicio` da 404 sin autenticar y `gh` no tiene sesión iniciada en este equipo. `main` queda local, 12 commits por delante de la última copia conocida de `origin/main`.
+Publicado en [github.com/Jonar519/app_ejercicio](https://github.com/Jonar519/app_ejercicio), rama `main`.
