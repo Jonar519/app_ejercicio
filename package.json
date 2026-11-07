@@ -37,7 +37,7 @@
     "zustand": "5.0.16"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.5",
+    "@eslint/js": "10.0.1",
     "@secretlint/secretlint-rule-pattern": "13.1.0",
     "@secretlint/secretlint-rule-preset-recommend": "13.1.0",
     "@tailwindcss/vite": "4.3.3",
